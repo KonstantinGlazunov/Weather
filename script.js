@@ -1,11 +1,10 @@
 const locationUrl = "https://get.geojs.io/v1/ip/geo.json";
 const ulList = document.getElementById("ulList");
+const ulList2 = document.getElementById("ulList2");
 const caption = document.getElementById("caption");
 
 
 getLocationWeatherURL();
-
-
 
 async function getLocationWeatherURL() {
   const locationData = await fetch(locationUrl);
@@ -13,24 +12,7 @@ async function getLocationWeatherURL() {
   const { country, city, latitude, longitude } = locationJson;
   let locationWeatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
 
-  /*//Вариант с реальной ппозицией по navigator.geolocation.getCurrentPosition
-  const successCallback = (position) => {
-    const latitude2 = position.coords.latitude;
-    const longitude2 = position.coords.longitude;
-
-  };
-  const errorCallback = (error) => {
-    console.log(error);
-  };
-  navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  
-  //let locationWeatherURL2 = `https://api.open-meteo.com/v1/forecast?latitude=${latitude2}&longitude=${longitude2}&current_weather=true`;
-
-  console.log(locationWeatherURL2);
- */
   showWeather(country, city, locationWeatherURL);
-
-
 }
 
 async function showWeather(country, city, locationWeatherURL) {
@@ -103,15 +85,15 @@ function weatherDescription(weathercode) {
 
   }
 }
-/*
-const ulList2 = document.getElementById("ulList2");
-const caption2 = document.getElementById("caption2");
-//Вариант с использованием  navigator.geolocation.getCurrentPosition
-async function getLocationWeatherURL2() {
 
+getLocationWeatherURL2();
+//Вариант с использованием  navigator.geolocation.getCurrentPosition
+ function getLocationWeatherURL2() {
+  let latitude = 0;
+  let longitude = 0;
   const successCallback = (position) => {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+     latitude =  position.coords.latitude;
+     longitude =  position.coords.longitude;
   };
   const errorCallback = (error) => {
     console.log(error);
@@ -120,18 +102,19 @@ async function getLocationWeatherURL2() {
   
   
   let locationWeatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
-  console.log(locationWeatherURL);
   showWeather2(locationWeatherURL);
 
 }
 
+
+
 async function showWeather2(locationWeatherURL) {
-  const weatherData = await fetch(locationWeatherURL);
-  const weatherJson = await weatherData.json();
-  const { temperature, windspeed, weathercode } = weatherJson.current_weather;
+  let weatherData = await fetch(locationWeatherURL);
+  let weatherJson = await weatherData.json();
+  
+   const { temperature, windspeed, weathercode } = weatherJson.current_weather;
 
-
-  let captionText = `Weather in  your location`;
+  let captionText = `Weather in  your own location`;
   caption2.append(captionText);
 
   let liTemperature = document.createElement("li");
@@ -145,11 +128,12 @@ async function showWeather2(locationWeatherURL) {
 
 
   ulList2.append(liTemperature, liWindspeed, liWeatherсode);
+
 }
 
 
 
-
+/*
 
 const successCallback = (position) => {
     console.log(position);
@@ -159,5 +143,4 @@ const successCallback = (position) => {
   };
   
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
-  
-*/
+  */
