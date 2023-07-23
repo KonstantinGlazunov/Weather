@@ -21,7 +21,7 @@ async function showWeather(country, city, locationWeatherURL) {
   const { temperature, windspeed, weathercode } = weatherJson.current_weather;
 
 
-  let captionText = `Weather in  ${city} (${country})`;
+  let captionText = `Weather by your IP  ${city} (${country})`;
   caption.append(captionText);
 
   let liTemperature = document.createElement("li");
@@ -67,9 +67,9 @@ function weatherDescription(weathercode) {
 
     case 77: return "now grains";
 
-    case 80: return "Slight";
-    case 81: return " moderate";
-    case 82: return " violent";
+    case 80: return "Rain showers: Slight";
+    case 81: return "Rain showers: moderate";
+    case 82: return "Rain showers: violent";
 
     case 85: "Snow showers slight "
     case 86: "Snow showers  heavy"
@@ -100,7 +100,6 @@ getLocationWeatherURL2();
   };
   navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
   
-  
   let locationWeatherURL = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true`;
   showWeather2(locationWeatherURL);
 
@@ -114,7 +113,7 @@ async function showWeather2(locationWeatherURL) {
   
    const { temperature, windspeed, weathercode } = weatherJson.current_weather;
 
-  let captionText = `Weather in  your own location`;
+  let captionText = `Weather by your browser location`;
   caption2.append(captionText);
 
   let liTemperature = document.createElement("li");
